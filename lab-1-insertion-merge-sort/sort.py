@@ -9,8 +9,8 @@ def insertion_sort_by_max_speed(helicopters):
         while hole_pos >= 0:
             sort_counter.insert_comp_counter += 1
             if helicopters[hole_pos].max_speed > current_element.max_speed:
-                sort_counter.insert_slip_counter += 1
                 helicopters[hole_pos + 1] = helicopters[hole_pos]
+                sort_counter.insert_slip_counter += 1
                 hole_pos -= 1
             else:
                 break
@@ -29,19 +29,29 @@ def merge_sort_by_passengers(helicopters):
         left = merge_sort_by_passengers(left)
         right = merge_sort_by_passengers(right)
 
-        helicopters = []
+        left_pos = right_pos = original_pos = 0
 
-        while len(left) > 0 and len(right) > 0:
-            if left[0].max_passengers > right[0].max_passengers:
-                helicopters.append(left[0])
-                left.pop(0)
+        while left_pos < len(left) and right_pos < len(right):
+            sort_counter.merge_comp_counter += 1
+            if left[left_pos].max_passengers > right[right_pos].max_passengers:
+                helicopters[original_pos] = left[left_pos]
+                left_pos += 1
             else:
-                helicopters.append(right[0])
-                right.pop(0)
+                helicopters[original_pos] = right[right_pos]
+                right_pos += 1
+            original_pos += 1
+            sort_counter.merge_swap_counter += 1
 
-        for element in left:
-            helicopters.append(element)
-        for element in right:
-            helicopters.append(element)
+        while left_pos < len(left):
+            helicopters[original_pos] = left[left_pos]
+            sort_counter.merge_comp_counter += 1
+            left_pos += 1
+            original_pos += 1
+
+        while right_pos < len(right):
+            helicopters[original_pos] = right[right_pos]
+            sort_counter.merge_comp_counter += 1
+            right_pos += 1
+            original_pos += 1
 
     return helicopters
