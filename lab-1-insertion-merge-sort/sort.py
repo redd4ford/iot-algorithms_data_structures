@@ -44,13 +44,13 @@ def merge_sort_by_passengers(helicopters):
 
         while left_pos < len(left):
             helicopters[original_pos] = left[left_pos]
-            sort_counter.merge_comp_counter += 1
+            sort_counter.merge_swap_counter += 1
             left_pos += 1
             original_pos += 1
 
         while right_pos < len(right):
             helicopters[original_pos] = right[right_pos]
-            sort_counter.merge_comp_counter += 1
+            sort_counter.merge_swap_counter += 1
             right_pos += 1
             original_pos += 1
 
