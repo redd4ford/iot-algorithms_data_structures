@@ -1,7 +1,6 @@
 """Custom Graph."""
 import copy
 import sys
-import doctest
 
 INT_MAX = sys.maxsize
 
@@ -45,14 +44,29 @@ class Graph:
         :return: none
         >>> graph = Graph()
         >>> graph.add_edge(1, 5, 10)
-        >>> graph.add_edge(5, 1, 10)
+        >>> graph.add_edge(1, 6, 10)
         >>> print(graph.distances)
-        {(1, 5): 10, (5, 1): 10}
+        {(1, 5): 10, (1, 6): 10}
         """
         self._add_node(from_node)
         self._add_node(to_node)
         self.edges.setdefault(from_node, set()).add(to_node)
         self.distances[from_node, to_node] = distance
+
+    def add_two_sided_edge(self, from_node: int, to_node: int, distance=INT_MAX) -> None:
+        """
+        add a two-sided edge between two nodes.
+        :param from_node: the first node
+        :param to_node: the second node
+        :param distance: the distance between two nodes
+        :return: none
+        >>> graph = Graph()
+        >>> graph.add_two_sided_edge(1, 5, 10)
+        >>> print(graph.distances)
+        {(1, 5): 10, (5, 1): 10}
+        """
+        self.add_edge(from_node, to_node, distance)
+        self.add_edge(to_node, from_node, distance)
 
     def dijkstra(self, current_node: int) -> dict:
         """
@@ -65,12 +79,9 @@ class Graph:
         node and a value is a distance of the path from current_node to
         this node
         >>> graph = Graph()
-        >>> graph.add_edge(1, 2, 20)
-        >>> graph.add_edge(2, 1, 20)
-        >>> graph.add_edge(1, 4, 25)
-        >>> graph.add_edge(4, 1, 25)
-        >>> graph.add_edge(2, 3, 20)
-        >>> graph.add_edge(3, 2, 20)
+        >>> graph.add_two_sided_edge(1, 2, 20)
+        >>> graph.add_two_sided_edge(1, 4, 25)
+        >>> graph.add_two_sided_edge(2, 3, 20)
         >>> print(graph.dijkstra(2))
         {2: 0, 1: 20, 3: 20, 4: 45}
         """
