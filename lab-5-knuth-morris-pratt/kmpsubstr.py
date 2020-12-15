@@ -22,7 +22,7 @@ def knuth_morris_pratt(string: str, pattern: str) -> list:
     # track the length of the longest prefix suffix value for
     # the previous index. if pattern[prev_longest_pref_suf] and
     # pattern[curr_string_pos] match, increment prev_longest_pref_suf and
-    # assign the incremented value to lps[curr_string_pos]. if the do not
+    # assign the incremented value to lps[curr_string_pos]. if they do not
     # match and prev_longest_pref_suf != 0, we update it to
     # lps[prev_longest_pref_suf - 1].
 
@@ -128,7 +128,7 @@ def write_to_file(file: str, results: list) -> None:
             out_file.write(line_to_write)
 
 
-def main(IN_FILE='SOOQA.in', OUT_FILE='kmpsubstr.out') -> None:
+def main(IN_FILE='kmpsubstr.in', OUT_FILE='kmpsubstr.out') -> None:
     """
     main function.
     :param IN_FILE: a file to read string and pattern values from
@@ -172,4 +172,4 @@ def main(IN_FILE='SOOQA.in', OUT_FILE='kmpsubstr.out') -> None:
 
 if __name__ == '__main__':
     doctest.testmod(verbose=True)
-    main('examples/1.in', 'examples/1.out')
+    main()
